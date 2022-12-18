@@ -1,57 +1,47 @@
-const NOUGHT = 'O';
-const CROSS = 'X';
-const EMPTY = '';
-
-let currentPlayer = CROSS;
-
-const ticTacToeBoard = [
-  [EMPTY, EMPTY, EMPTY],
-  [EMPTY, EMPTY, EMPTY],
-  [EMPTY, EMPTY, EMPTY]
-
-];
-
-function insertAt(row, col) {
-  if (ticTacToeBoard[row][col] === EMPTY) {
-    ticTacToeBoard[row][col] = currentPlayer;
-
-    // Switch to the other player.
-    currentPlayer = currentPlayer === NOUGHT ? CROSS : NOUGHT;
+//Factory function for creating player details
+function createPlayer(name) {
+  return {
+    name: name,
+    marker: "X",
   }
 }
 
+// function createAIPlayer(difficulty) {
+//   return {
+//     difficulty: difficulty,
+//     marker: "O",
+//   }
+// }
 
-const gameContainer = document.getElementById('game-container');
-console.log(ticTacToeBoard.length)
 
-for (let row = 0; row < ticTacToeBoard.length; row++) {
-  const rowContainer = document.createElement('div');
-  rowContainer.classList.add('row');
+const player = createPlayer('Eng', 'X')
+const EMPTY = ""
+const gameBoard = [[EMPTY, EMPTY, EMPTY],
+[EMPTY, EMPTY, EMPTY],
+[EMPTY, EMPTY, EMPTY]]
 
-  for (let col = 0; col < ticTacToeBoard[row].length; col++) {
-    const cell = document.createElement('div');
-    cell.classList.add('cell');
-    // Add an event listener to the cell that calls the insertAt() function
-    // when the cell is clicked.
+
+const board = document.getElementById("game-container")
+
+for (x = 0; x < gameBoard.length; x++) {
+  const row = document.createElement("div")
+  row.classList.add("row")
+  board.appendChild(row)
+  for (y = 0; y < 3; y++) {
+    const cell = document.createElement('div')
+    cell.classList.add(`cell`)
+    row.appendChild(cell)
     cell.addEventListener('click', () => {
-      insertAt(row, col);
-      renderBoard();
-    });
+    })
+    const allCell = document.querySelectorAll(".cell")
+    allCell.forEach(() => {
 
-    rowContainer.appendChild(cell);
-  }
-
-  gameContainer.appendChild(rowContainer);
-}
-
-function renderBoard() {
-  for (let row = 0; row < ticTacToeBoard.length; row++) {
-    for (let col = 0; col < ticTacToeBoard[row].length; col++) {
-      const cell = document.querySelector(`#game-container .row:nth-child(${row + 1}) .cell:nth-child(${col + 1})`);
-      cell.textContent = ticTacToeBoard[row][col];
-    }
+    })
   }
 }
 
-// Call the renderBoard() function initially to render the empty board to the screen.
-renderBoard();
+
+
+function updateBoard(cell) {
+
+}
