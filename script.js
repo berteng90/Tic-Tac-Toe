@@ -6,46 +6,55 @@ function createPlayer(name) {
   }
 }
 
-// function createAIPlayer(difficulty) {
-//   return {
-//     difficulty: difficulty,
-//     marker: "O",
-//   }
-// }
-
 
 const player = createPlayer('Eng', 'X')
 const EMPTY = ""
-const gameBoard = [[EMPTY, EMPTY, EMPTY],
-[EMPTY, EMPTY, EMPTY],
-[EMPTY, EMPTY, EMPTY]]
+let playerMoves = []
+const gameBoard = [
+  [EMPTY, EMPTY, EMPTY],
+  [EMPTY, EMPTY, EMPTY],
+  [EMPTY, EMPTY, EMPTY]
+]
+
 
 const winningCombinations = [
   [1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
-  [2, 5, 8], [3, 6, 9], [1, 5, 9], [7, 5, 9]]
+  [2, 5, 8], [3, 6, 9], [1, 5, 9], [7, 5, 9]
+]
 
 const board = document.getElementById("game-container")
 
 for (x = 0; x < gameBoard.length; x++) {
+  let cellNo = 0
   const row = document.createElement("div")
   row.classList.add("row")
   board.appendChild(row)
+  if (x === 0) {
+    cellNo = 1
+  } else if (x === 1) {
+    cellNo = 4
+  } else {
+    cellNo = 7
+  }
   for (y = 0; y < 3; y++) {
     const cell = document.createElement('div')
     cell.classList.add(`cell`)
     cell.setAttribute('x-loc', x)
     cell.setAttribute('y-loc', y)
+    cell.setAttribute('cell-id', cellNo)
+    cellNo++;
     row.appendChild(cell)
     cell.addEventListener('click', () => {
-      let x = cell.getAttribute('x-loc')
-      let y = cell.getAttribute('y-loc')
-      if (!cell.textContent === EMPTY) {
 
-      } else {
-        console.log(player.marker)
+      if (cell.textContent === EMPTY) {
+        let xcol = cell.getAttribute('x-loc')
+        let yrow = cell.getAttribute('y-loc')
+        let z = cell.getAttribute('cell-id')
         cell.textContent = player.marker
+        updateBoard(xcol, yrow, z);
+      } else {
       }
-      updateBoard(x, y);
+
     })
 
   }
@@ -53,22 +62,30 @@ for (x = 0; x < gameBoard.length; x++) {
 
 
 
-function updateBoard(x, y) {
+function updateBoard(x, y, z) {
   gameBoard[x][y] = 'X'
-  let foundEmptyCell = true
+  playerMoves.push(z)
+  let foundEmptyCell = false
   do {
-    const randomX = Math.floor(Math.random() * 3)
-    const randomY = Math.floor(Math.random() * 3)
+    let randomX = Math.floor(Math.random() * 3)
+    let randomY = Math.floor(Math.random() * 3)
     if (gameBoard[randomX][randomY] === EMPTY) {
       gameBoard[randomX][randomY] = 'O'
       const cell = document.querySelector(`[x-loc="${randomX}"][y-loc="${randomY}"]`);
       cell.textContent = 'O'
       foundEmptyCell = true
-    } else {
-      foundEmptyCell = false
-    }
-    console.log(gameBoard)
-  }
-  while (foundEmptyCell = false)
 
+    } else {
+
+    }
+  }
+  while (foundEmptyCell === false)
+
+}
+
+
+function checkForWinner(Moves) {
+  for (i = 0; i < winningCombinations.length; i++) {
+
+  }
 }
