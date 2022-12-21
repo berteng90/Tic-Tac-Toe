@@ -95,7 +95,6 @@ function checkForWinner(Moves) {
     for (z = 0; z < winningCombinations[i].length; z++) {
       if (Moves.includes(winningCombinations[i][z])) {
         winCon.push(winningCombinations[i][z])
-
         z++;
         if (Moves.includes(winningCombinations[i][z])) {
           winCon.push(winningCombinations[i][z])
