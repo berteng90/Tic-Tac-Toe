@@ -9,13 +9,12 @@ function createPlayer(name) {
 
 const player = createPlayer('Eng', 'X')
 const EMPTY = ""
-let playerMoves = []
+let playerMoves = [9, 7, 5]
 const gameBoard = [
   [EMPTY, EMPTY, EMPTY],
   [EMPTY, EMPTY, EMPTY],
   [EMPTY, EMPTY, EMPTY]
 ]
-
 
 const winningCombinations = [
   [1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
@@ -65,6 +64,7 @@ for (x = 0; x < gameBoard.length; x++) {
 function updateBoard(x, y, z) {
   gameBoard[x][y] = 'X'
   playerMoves.push(z)
+  checkForWinner(playerMoves)
   let foundEmptyCell = false
   do {
     let randomX = Math.floor(Math.random() * 3)
@@ -84,8 +84,68 @@ function updateBoard(x, y, z) {
 }
 
 
-function checkForWinner(Moves) {
+function checkForWinner() {
+  let winCon = []
   for (i = 0; i < winningCombinations.length; i++) {
+    for (z = 0; z < winningCombinations[i].length; z++) {
+      if (playerMoves.includes(winningCombinations[i][z])) {
+        winCon.push(winningCombinations[i][z])
+        z++;
 
+        if (playerMoves.includes(winningCombinations[i][z])) {
+          winCon.push(winningCombinations[i][z])
+          z++;
+          if (playerMoves.includes(winningCombinations[i][z])) {
+            winCon.push(winningCombinations[i][z])
+            console.log(winCon)
+          } else {
+            winCon = []
+            break;
+          }
+        } else {
+          winCon = []
+          break;
+
+        }
+      } else {
+        winCon = []
+        break;
+      }
+    }
   }
 }
+checkForWinner()
+
+// function checkForWinner(Moves) {
+
+//   for (i = 0; i < winningCombinations.length; i++) {
+//     for (z = 0; z < winningCombinations[i].length; z++) {
+//       if (Moves.includes(winningCombinations[i][arr])) {
+//         console.log(Moves)
+//         arr++;
+//         if (Moves.includes(winningCombinations[i][arr])) {
+//           arr++;
+//           if (Moves.includes(winningCombinations[i][arr])) {
+//             alert("Done!")
+//           } else {
+//             console.log("Outer Loop 3")
+//             arr = 0;
+//             break;
+//           }
+//         } else {
+//           console.log("Outer Loop 2")
+//           arr = 0;
+//           break;
+//         }
+//       } else {
+//         console.log("Outer Loop 1")
+//         arr = 0;
+//         break;
+//       }
+//     }
+//   }
+// }
+
+
+
+
